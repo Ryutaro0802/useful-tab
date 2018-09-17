@@ -2,17 +2,12 @@ import React, { Component } from "react";
 import NewTodo from "./components/NewTodo";
 import TodoList from "./components/TodoList";
 import Footer from "./components/Footer";
+import NoTasks from "./components/NoTasks";
 import "./App.css";
 import { setItems, getItems } from "./util/storage.js";
 
-// const items = [
-//   { id: 0, title: "adf", completed: false, isEditing: false },
-//   { id: 1, title: "asfd", completed: false, isEditing: false },
-//   { id: 2, title: "adfs", completed: false, isEditing: false }
-// ];
-
 const todoAppKey = "useful-tab-todo";
-const defaultItems = JSON.parse(getItems(todoAppKey));
+const defaultItems = JSON.parse(getItems(todoAppKey)) || [];
   
 class App extends Component {
   constructor() {
@@ -82,19 +77,21 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="todo-app">
+    const todoContents = this.state.items.length
+      ? <TodoList
+        items={this.state.items}
+        editStartTodo={this.editStartTodo}
+        deleteTodo={this.deleteTodo}
+        completeStateChangeTodo={this.completeStateChangeTodo}
+        editCompleteTodo={this.editCompleteTodo}
+      />
+      : <NoTasks />;
+    
+    return <div className="todo-app">
         <NewTodo addTodo={this.addTodo} />
-        <TodoList
-          items={this.state.items}
-          editStartTodo={this.editStartTodo}
-          deleteTodo={this.deleteTodo}
-          completeStateChangeTodo={this.completeStateChangeTodo}
-          editCompleteTodo={this.editCompleteTodo}
-        />
+        {todoContents}        
         <Footer todoLength={this.state.items.length} />
-      </div>
-    );
+      </div>;
   }
 }
 

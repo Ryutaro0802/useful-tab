@@ -3,7 +3,7 @@ import TodoListItem from "./TodoListItem.jsx";
 
 class TodoList extends Component {
   render() {
-    const listItem = this.props.items.map(item => {
+    const listItems = this.props.items.map(item => {
       return (
         <TodoListItem
           key={item.id}
@@ -15,7 +15,7 @@ class TodoList extends Component {
         />
       );
     });
-    return <ul className="todo-list">{listItem}</ul>;
+    return <ul className="todo-list">{listItems}</ul>;
   }
 }
 
