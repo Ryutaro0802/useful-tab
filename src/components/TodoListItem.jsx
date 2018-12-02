@@ -7,7 +7,7 @@ export default class TodoListItem extends Component {
     super(props);
     this.state = {
       newTitle: this.props.title,
-      isEditing: this.props.isEditing
+      isEditing: false
     };
   }
 
@@ -22,7 +22,8 @@ export default class TodoListItem extends Component {
   };
 
   itemEdit = e => {
-
+    e.preventDefault();
+    this.setState({ isEditing: true });
   };
 
   updateTitle = e => {
@@ -74,27 +75,21 @@ export default class TodoListItem extends Component {
             />
           )}
         </div>
-        <button className="edit" onClick={this.itemEdit}>
-          <i className="material-icons">create</i>
-        </button>
         <button className="delete" onClick={this.itemDelete}>
           <i className="material-icons">close</i>
         </button>
-
-        {this.props.isEditing && <TodoListItemDetail />}
-
-        <span className={css(styles.red)}>Red!</span>
+        <button className={css(styles.editButton)} onClick={this.itemEdit}>
+          <i className="material-icons">more_vert</i>
+        </button>
+        {this.isEditing && <TodoListItemDetail />}
       </li>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  red: {
-    backgroundColor: "red"
-  },
-  blue: {
-    backgroundColor: "blue"
+  editButton: {
+    cursor: "pointer"
   },
   hover: {
     ":hover": {

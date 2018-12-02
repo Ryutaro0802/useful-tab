@@ -3,13 +3,14 @@ import NewTodo from "./components/NewTodo";
 import TodoList from "./components/TodoList";
 import Footer from "./components/Footer";
 import NoTasks from "./components/NoTasks";
+import { StyleSheet, css } from "aphrodite";
+import cssVariables from "./cssVariables.json";
 import "./App.css";
 import { setItems, getItems } from "./util/storage.js";
-
 const todoAppKey = "useful-tab-todo";
 const defaultItems = JSON.parse(getItems(todoAppKey)) || [];
 
-class Todo extends Component {
+export default class Todo extends Component {
     constructor() {
         super();
         this.state = { items: defaultItems };
@@ -95,4 +96,6 @@ class Todo extends Component {
     }
 }
 
-export default Todo;
+const styles = StyleSheet.create({
+
+});

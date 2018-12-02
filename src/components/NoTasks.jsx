@@ -1,14 +1,25 @@
 import React, { Component } from "react";
+import { StyleSheet, css } from "aphrodite";
 
-class NoTasks extends Component {
+export default class NoTasks extends Component {
   render() {
     return (
-      <div className="no-tasks">
-        <i className="material-icons">sentiment_satisfied_alt</i>
+      <div className={css(styles.noTasks)}>
+        <span className={css(styles.noTasksIcon)}>
+          <i className="material-icons">sentiment_satisfied_alt</i>
+        </span>
         <p>No tasks</p>
       </div>
     );
   }
 }
 
-export default NoTasks;
+const styles = StyleSheet.create({
+  noTasks: {
+    textAlign: "center",
+    padding: "30px 0"
+  },
+  noTasksIcon: {
+    fontSize: "30px"
+  }
+});

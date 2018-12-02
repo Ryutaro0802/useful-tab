@@ -1,0 +1,13 @@
+{
+  "colors": {
+    "text": "#5a5a5a",
+    "placeHolder": "#c3c3c3",
+    "border": "#c4c4c4",
+    "emphasis": "#cc9a9a",
+    "complete": "#779fa9"
+  },
+  "text": {
+    "lineHeight": 1.5,
+    "fontFamily": "sans-serif"
+  }
+}

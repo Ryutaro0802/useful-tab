@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Todo from "./Todo.jsx";
 
-class App extends Component {
+export default class App extends Component {
   constructor() {
     super();
   }
@@ -10,5 +10,3 @@ class App extends Component {
     return <Todo />;
   }
 }
-
-export default App;
