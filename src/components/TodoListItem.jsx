@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import TodoListItemDetail from "./TodoListItemDetail.jsx";
+import { StyleSheet, css } from "aphrodite";
 
-class TodoListItem extends Component {
+export default class TodoListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newTitle: this.props.title
+      newTitle: this.props.title,
+      isEditing: this.props.isEditing
     };
   }
 
@@ -16,6 +19,10 @@ class TodoListItem extends Component {
   editStartTitle = e => {
     setTimeout(() => this.refs.titleinput.focus(), 10);
     this.props.editStartTodo({ id: this.props.id });
+  };
+
+  itemEdit = e => {
+
   };
 
   updateTitle = e => {
@@ -30,7 +37,7 @@ class TodoListItem extends Component {
   editCompleteTitle = e => {
     e.preventDefault();
     this.props.editCompleteTodo({
-      id: this.props.id,
+      id: this.props.item.id,
       newTitle: this.state.newTitle
     });
   };
@@ -53,7 +60,7 @@ class TodoListItem extends Component {
         <div className="text">
           {!this.props.isEditing && (
             <span className="todo-title" onClick={this.editStartTitle}>
-              {this.props.title}
+              {this.props.item.title}
             </span>
           )}
           {this.props.isEditing && (
@@ -67,12 +74,36 @@ class TodoListItem extends Component {
             />
           )}
         </div>
+        <button className="edit" onClick={this.itemEdit}>
+          <i className="material-icons">create</i>
+        </button>
         <button className="delete" onClick={this.itemDelete}>
           <i className="material-icons">close</i>
         </button>
+
+        {this.props.isEditing && <TodoListItemDetail />}
+
+        <span className={css(styles.red)}>Red!</span>
       </li>
     );
   }
 }
 
-export default TodoListItem;
+const styles = StyleSheet.create({
+  red: {
+    backgroundColor: "red"
+  },
+  blue: {
+    backgroundColor: "blue"
+  },
+  hover: {
+    ":hover": {
+      backgroundColor: "red"
+    }
+  },
+  small: {
+    "@media (max-width: 600px)": {
+      backgroundColor: "red"
+    }
+  }
+});
