@@ -16,9 +16,18 @@ export default class TodoListItem extends Component {
     this.props.completeStateChangeTodo({ id: this.props.id });
   };
 
-  editStartTitle = e => {
-    setTimeout(() => this.refs.titleinput.focus(), 10);
-    this.props.editStartTodo({ id: this.props.id });
+  editStartTitle = () => {
+    this.setState({ isEditing: true });
+    // setTimeout(() => this.refs.titleInput.focus(), 10);
+  };
+
+  editCompleteTitle = e => {
+    e.preventDefault();
+    this.setState({ isEditing: true });
+    this.props.editCompleteTodo({
+      id: this.props.item.id,
+      newTitle: this.state.newTitle
+    });
   };
 
   itemEdit = e => {
@@ -33,14 +42,6 @@ export default class TodoListItem extends Component {
   itemDelete = e => {
     e.preventDefault();
     this.props.deleteTodo({ id: this.props.id });
-  };
-
-  editCompleteTitle = e => {
-    e.preventDefault();
-    this.props.editCompleteTodo({
-      id: this.props.item.id,
-      newTitle: this.state.newTitle
-    });
   };
 
   onKeyDown = e => {
@@ -59,20 +60,20 @@ export default class TodoListItem extends Component {
           {this.props.completed ? "check_circle" : "check_circle_outline"}
         </i>
         <div className="text">
-          {!this.props.isEditing && (
-            <span className="todo-title" onClick={this.editStartTitle}>
-              {this.props.item.title}
-            </span>
-          )}
-          {this.props.isEditing && (
+          {this.state.isEditing && (
             <input
               type="text"
-              ref="titleinput"
+              ref="titleInput"
               defaultValue={this.props.title}
               onInput={this.updateTitle}
               onBlur={this.editCompleteTitle}
               onKeyDown={this.onKeyDown}
             />
+          )}
+          {!this.state.isEditing && (
+            <span className="todo-title" onClick={this.editStartTitle}>
+              {this.props.item.title}
+            </span>
           )}
         </div>
         <button className="delete" onClick={this.itemDelete}>
@@ -81,7 +82,9 @@ export default class TodoListItem extends Component {
         <button className={css(styles.editButton)} onClick={this.itemEdit}>
           <i className="material-icons">more_vert</i>
         </button>
-        {this.isEditing && <TodoListItemDetail />}
+        {/* <div style="display: none;">
+          {this.state.isEditing && <TodoListItemDetail />}
+        </div> */}
       </li>
     );
   }
