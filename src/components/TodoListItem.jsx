@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TodoListItemDetail from "./TodoListItemDetail.jsx";
 import { StyleSheet, css } from "aphrodite";
+import cssVariables from "../cssVariables.json";
 
 export default class TodoListItem extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ export default class TodoListItem extends Component {
 
   render() {
     return (
-      <li className={this.props.completed ? "is-complete" : ""}>
+      <li className={css(styles.todoListItem)}>
         <i
           className="material-icons checkbox"
           onClick={this.changeCompleteState}
@@ -76,7 +77,7 @@ export default class TodoListItem extends Component {
             </span>
           )}
         </div>
-        <button className="delete" onClick={this.itemDelete}>
+        <button className={css(styles.deleteButton)} onClick={this.itemDelete}>
           <i className="material-icons">close</i>
         </button>
         <button className={css(styles.editButton)} onClick={this.itemEdit}>
@@ -91,8 +92,24 @@ export default class TodoListItem extends Component {
 }
 
 const styles = StyleSheet.create({
+  todoListItem: {
+    display: "flex",
+    alignItems: "center",
+    fontSize: "24px",
+    borderBottom: `1px solid ${cssVariables.colors.border}`,
+    padding: "16px",
+    ":last-child": {
+      borderBottom: "none"
+    }
+  },
   editButton: {
     cursor: "pointer"
+  },
+  deleteButton: {
+    color: cssVariables.colors.emphasis,
+    ':hover': {
+      cursor: 'pointer'
+    }
   },
   hover: {
     ":hover": {

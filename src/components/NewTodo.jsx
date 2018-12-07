@@ -1,18 +1,10 @@
 import React, { Component } from "react";
+import { StyleSheet, css } from "aphrodite";
+import cssVariables from "../cssVariables.json";
 
-const style = {
-  width: "100%",
-  fontSize: "24px",
-  padding: "16px 16px 16px 16px",
-  borderTop: "none",
-  borderLeft: "none",
-  borderRight: "none",
-  borderBottom: "1px solid var(--border-color)"
-};
-
-class NewTodo extends Component {
+export default class NewTodo extends Component {
   constructor(props) {
-    super(props);  
+    super(props);
     this.state = {
       inputText: ""
     };
@@ -32,7 +24,7 @@ class NewTodo extends Component {
     const value = e.target.value;
     this.setState({
       inputText: value
-    });    
+    });
   }
 
   render() {
@@ -42,7 +34,7 @@ class NewTodo extends Component {
           <input
             type="text"
             value={this.state.inputText}
-            style={style}
+            className={css(styles.newTodoInput)}
             placeholder="What need to be done?"
             onInput={this.onInput}
           />
@@ -52,4 +44,14 @@ class NewTodo extends Component {
   }
 }
 
-export default NewTodo;
+const styles = StyleSheet.create({
+  newTodoInput: {
+    width: "100%",
+    fontSize: "24px",
+    padding: "16px 16px 16px 16px",
+    borderTop: "none",
+    borderLeft: "none",
+    borderRight: "none",
+    borderBottom: `1px solid ${cssVariables.colors.border}`
+  }
+});
