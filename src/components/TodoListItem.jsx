@@ -54,10 +54,7 @@ export default class TodoListItem extends Component {
   render() {
     return (
       <li className={css(styles.todoListItem)}>
-        <i
-          className="material-icons checkbox"
-          onClick={this.changeCompleteState}
-        >
+        <i className="material-icons checkbox" onClick={this.itemDelete}>
           {this.props.completed ? "check_circle" : "check_circle_outline"}
         </i>
         <div className="text">
@@ -77,9 +74,9 @@ export default class TodoListItem extends Component {
             </span>
           )}
         </div>
-        <button className={css(styles.deleteButton)} onClick={this.itemDelete}>
+        {/* <button className={css(styles.deleteButton)} onClick={this.itemDelete}>
           <i className="material-icons">close</i>
-        </button>
+        </button> */}
         <button className={css(styles.editButton)} onClick={this.itemEdit}>
           <i className="material-icons">more_vert</i>
         </button>
@@ -107,8 +104,8 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     color: cssVariables.colors.emphasis,
-    ':hover': {
-      cursor: 'pointer'
+    ":hover": {
+      cursor: "pointer"
     }
   },
   hover: {

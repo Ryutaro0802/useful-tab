@@ -6,7 +6,7 @@ export default class Footer extends Component {
   render() {
     return (
       <footer className={css(styles.footer)}>
-        <span>Todo Items: {this.props.todoLength}</span>
+        <small>Todo Items: {this.props.todoLength}</small>
       </footer>
     );
   }

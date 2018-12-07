@@ -54,6 +54,7 @@ export default class Todo extends Component {
     };
 
     deleteTodo = ({ id }) => {
+        console.log(id);
         const newItems = this.state.items.filter(todo => todo.id !== id);
         this.setState({
             items: newItems
