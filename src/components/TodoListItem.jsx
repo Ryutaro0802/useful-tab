@@ -42,7 +42,7 @@ export default class TodoListItem extends Component {
 
   itemDelete = e => {
     e.preventDefault();
-    this.props.deleteTodo({ id: this.props.id });
+    this.props.deleteTodo({ id: this.props.item.id });
   };
 
   onKeyDown = e => {
