@@ -6,20 +6,18 @@ export default class NewTodo extends Component {
   constructor(props) {
     super(props);
     this.state = { inputText: "" };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
   }
 
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
     this.props.addTodo(this.state.inputText);
     this.setState({ inputText: "" });
-  }
+  };
 
-  onChange(e) {
+  onChange = e => {
     const value = e.target.value;
     this.setState({ inputText: value });
-  }
+  };
 
   render() {
     return (

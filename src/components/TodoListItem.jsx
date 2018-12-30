@@ -7,50 +7,25 @@ export default class TodoListItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newTitle: this.props.title,
       isEditing: false
     };
   }
-
-  changeCompleteState = e => {
-    e.preventDefault();
-    this.props.completeStateChangeTodo({ id: this.props.id });
-  };
-
-  editStartTitle = () => {
-    this.setState({ isEditing: true });
-    // setTimeout(() => this.refs.titleInput.focus(), 10);
-  };
-
-  editCompleteTitle = e => {
-    e.preventDefault();
-    this.setState({ isEditing: true });
-    this.props.editCompleteTodo({
-      id: this.props.item.id,
-      newTitle: this.state.newTitle
-    });
-  };
-
-  itemEdit = e => {
+  startItemEdit = e => {
     e.preventDefault();
     this.setState({ isEditing: true });
   };
-
-  updateTitle = e => {
-    this.state.newTitle = e.target.value;
+  endItemEdit = () => {
+    this.setState({ isEditing: false });
   };
-
   itemDelete = e => {
     e.preventDefault();
     this.props.deleteTodo({ id: this.props.item.id });
   };
-
   onKeyDown = e => {
     if (e.keyCode === 13) {
       this.editCompleteTitle(e);
     }
   };
-
   render() {
     return (
       <li className={css(styles.todoListItem)}>
@@ -58,16 +33,18 @@ export default class TodoListItem extends Component {
           {this.props.completed ? "check_circle" : "check_circle_outline"}
         </i>
         <div className={css(styles.itemText)}>
-          <span className="todo-title" onClick={this.editStartTitle}>
-            {this.props.item.title}
-          </span>
+          <span className="todo-title">{this.props.item.title}</span>
         </div>
-        <button className={css(styles.editButton)} onClick={this.itemEdit}>
+        <button className={css(styles.editButton)} onClick={this.startItemEdit}>
           <i className="material-icons">more_vert</i>
         </button>
-        {/* <div style="display: none;">
-          {this.state.isEditing && <TodoListItemDetail />}
-        </div> */}
+        {this.state.isEditing && (
+          <TodoListItemDetail
+            item={this.props.item}
+            endItemEdit={this.endItemEdit}
+            editCompleteTodo={this.props.editCompleteTodo}
+          />
+        )}
       </li>
     );
   }

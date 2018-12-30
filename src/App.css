@@ -81,12 +81,6 @@ ul, ol {
   cursor: pointer;
 }
 
-.todo-list li input[type="text"] {
-  border: none;
-  font-size: inherit;
-  line-height: inherit;
-}
-
 /* no-tasks */
 
 /* .no-tasks i {
