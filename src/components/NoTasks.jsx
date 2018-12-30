@@ -6,7 +6,7 @@ export default class NoTasks extends Component {
     return (
       <div className={css(styles.noTasks)}>
         <span className={css(styles.noTasksIcon)}>
-          <i className="material-icons">sentiment_satisfied_alt</i>
+          <i className="material-icons icon">sentiment_satisfied_alt</i>
         </span>
         <p>No tasks</p>
       </div>
@@ -20,6 +20,11 @@ const styles = StyleSheet.create({
     padding: "30px 0"
   },
   noTasksIcon: {
-    fontSize: "30px"
+    fontSize: "30px",
+    icon: {
+      fontSize: "60px",
+      display: "block",
+      marginBottom: "10px"
+    }
   }
 });

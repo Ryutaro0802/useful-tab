@@ -57,22 +57,10 @@ export default class TodoListItem extends Component {
         <i className="material-icons checkbox" onClick={this.itemDelete}>
           {this.props.completed ? "check_circle" : "check_circle_outline"}
         </i>
-        <div className="text">
-          {this.state.isEditing && (
-            <input
-              type="text"
-              ref="titleInput"
-              defaultValue={this.props.title}
-              onInput={this.updateTitle}
-              onBlur={this.editCompleteTitle}
-              onKeyDown={this.onKeyDown}
-            />
-          )}
-          {!this.state.isEditing && (
-            <span className="todo-title" onClick={this.editStartTitle}>
-              {this.props.item.title}
-            </span>
-          )}
+        <div className={css(styles.itemText)}>
+          <span className="todo-title" onClick={this.editStartTitle}>
+            {this.props.item.title}
+          </span>
         </div>
         {/* <button className={css(styles.deleteButton)} onClick={this.itemDelete}>
           <i className="material-icons">close</i>
@@ -98,6 +86,10 @@ const styles = StyleSheet.create({
     ":last-child": {
       borderBottom: "none"
     }
+  },
+  itemText: {
+    flexGrow: "1",
+    padding: "0 16px"
   },
   editButton: {
     cursor: "pointer"

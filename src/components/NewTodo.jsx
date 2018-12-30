@@ -23,7 +23,7 @@ export default class NewTodo extends Component {
 
   render() {
     return (
-      <div className="form-container">
+      <div>
         <form onSubmit={this.onSubmit}>
           <input
             type="text"
@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
     borderTop: "none",
     borderLeft: "none",
     borderRight: "none",
-    borderBottom: `1px solid ${cssVariables.colors.border}`
+    borderBottom: `1px solid ${cssVariables.colors.border}`,
+    "::placeholder": {
+      color: cssVariables.placeHolder
+    }
   }
 });
