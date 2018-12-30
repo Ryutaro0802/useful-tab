@@ -62,9 +62,6 @@ export default class TodoListItem extends Component {
             {this.props.item.title}
           </span>
         </div>
-        {/* <button className={css(styles.deleteButton)} onClick={this.itemDelete}>
-          <i className="material-icons">close</i>
-        </button> */}
         <button className={css(styles.editButton)} onClick={this.itemEdit}>
           <i className="material-icons">more_vert</i>
         </button>
