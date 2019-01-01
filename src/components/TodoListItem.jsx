@@ -42,7 +42,7 @@ export default class TodoListItem extends Component {
           <TodoListItemDetail
             item={this.props.item}
             endItemEdit={this.endItemEdit}
-            editCompleteTodo={this.props.editCompleteTodo}
+            editTodo={this.props.editTodo}
           />
         )}
       </li>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     fontSize: "24px",
     borderBottom: `1px solid ${cssVariables.colors.border}`,
     padding: "16px",
+    position: "relative",
     ":last-child": {
       borderBottom: "none"
     }

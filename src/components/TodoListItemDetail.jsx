@@ -5,7 +5,7 @@ export default class TodoListItemDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newTitle: this.props.item.title
+      newTodo: this.props.item
     };
   }
   close = e => {
@@ -15,16 +15,16 @@ export default class TodoListItemDetail extends Component {
   onSubmit = e => {
     e.preventDefault();
     this.props.endItemEdit();
+    this.props.editTodo({
+      todo: this.state.newTodo
+    });
   };
   textChange = e => {
     this.setState({ newTitle: e.target.value });
-  };
-  editCompleteTitle = e => {
-    e.preventDefault();
-    this.setState({ isEditing: true });
-    this.props.editCompleteTodo({
-      id: this.props.item.id,
-      newTitle: this.state.newTitle
+    const todo = { ...this.state.newTodo };
+    todo.title = e.target.value;
+    this.setState({
+      newTodo: todo
     });
   };
   render() {
@@ -39,7 +39,7 @@ export default class TodoListItemDetail extends Component {
           <div>
             <input
               className={css(styles.todoDetailInput)}
-              value={this.state.newTitle}
+              value={this.state.newTodo.title}
               type="text"
               onChange={this.textChange}
             />
@@ -56,11 +56,15 @@ export default class TodoListItemDetail extends Component {
 
 const styles = StyleSheet.create({
   todoDetail: {
-    position: "fixed",
+    position: "absolute",
     backgroundColor: "#fff",
-    borderRadius: "3px",
+    borderRadius: "5px",
     boxShadow: "0px 0px 5px 1px rgba(213,208,157,0.76)",
-    padding: "10px"
+    padding: "10px",
+    zIndex: 1,
+    top: 0,
+    right: "40px",
+    width: "300px"
   },
   todoDetailInput: {
     border: "1px solid"

@@ -15,7 +15,7 @@ export default class Footer extends Component {
 const styles = StyleSheet.create({
   footer: {
     color: cssVariables.colors.text,
-    padding: "10px 15px",
+    padding: "10px 0",
     borderTop: `1px solid ${cssVariables.colors.border}`
   }
 });

@@ -9,8 +9,7 @@ export default class TodoList extends Component {
           key={item.id}
           item={item}
           deleteTodo={this.props.deleteTodo}
-          completeStateChangeTodo={this.props.completeStateChangeTodo}
-          editCompleteTodo={this.props.editCompleteTodo}
+          editTodo={this.props.editTodo}
         />
       );
     });
