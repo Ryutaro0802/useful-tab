@@ -8,8 +8,10 @@ export default class TodoList extends Component {
         <TodoListItem
           key={item.id}
           item={item}
+          tags={this.props.tags}
           deleteTodo={this.props.deleteTodo}
           editTodo={this.props.editTodo}
+          addTag={this.props.addTag}
         />
       );
     });

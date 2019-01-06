@@ -41,8 +41,10 @@ export default class TodoListItem extends Component {
         {this.state.isEditing && (
           <TodoListItemDetail
             item={this.props.item}
+            tags={this.props.tags}
             endItemEdit={this.endItemEdit}
             editTodo={this.props.editTodo}
+            addTag={this.props.addTag}
           />
         )}
       </li>

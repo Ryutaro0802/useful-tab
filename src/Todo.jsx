@@ -4,17 +4,21 @@ import TodoList from "./components/TodoList";
 import Footer from "./components/Footer";
 import NoTasks from "./components/NoTasks";
 import { StyleSheet, css } from "aphrodite";
-import cssVariables from "./cssVariables.json";
 import "./App.css";
 import { setItems, getItems } from "./util/storage.js";
 
-const todoAppKey = "useful-tab-todo";
+const todoAppKey = "todoItemStorageKey";
+const tagsKey = "todoTagsKey";
 const defaultItems = JSON.parse(getItems(todoAppKey)) || [];
+const defaultTags = JSON.parse(getItems(tagsKey)) || [];
 
 export default class Todo extends Component {
   constructor() {
     super();
-    this.state = { items: defaultItems };
+    this.state = {
+      items: defaultItems,
+      tags: defaultTags
+    };
   }
   addTodo = title => {
     const newId = this.state.items.length + 1;
@@ -22,6 +26,7 @@ export default class Todo extends Component {
       {
         id: newId,
         title: title,
+        detail: "",
         tags: []
       }
     ];
@@ -47,15 +52,32 @@ export default class Todo extends Component {
       items: newItems
     });
   };
+  addTag = title => {
+    const newId = this.state.tags.length + 1;
+    const newTag = [
+      {
+        id: newId,
+        title: title
+      }
+    ];
+    const newTags = this.state.tags.concat(newTag);
+    this.setState({
+      tags: newTags
+    });
+    console.log(this.state.tags);
+  };
   componentDidUpdate() {
     setItems(todoAppKey, JSON.stringify(this.state.items));
+    setItems(tagsKey, JSON.stringify(this.state.tags));
   }
   render() {
     const todoContents = this.state.items.length ? (
       <TodoList
         items={this.state.items}
+        tags={this.state.tags}
         deleteTodo={this.deleteTodo}
         editTodo={this.editTodo}
+        addTag={this.addTag}
       />
     ) : (
       <NoTasks />
