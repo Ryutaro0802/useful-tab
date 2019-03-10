@@ -82,8 +82,6 @@ export default class TodoListItem extends Component {
         </button>
 
         {this.props.isEditing && <TodoListItemDetail />}
-
-        <span className={css(styles.red)}>Red!</span>
       </li>
     );
   }
