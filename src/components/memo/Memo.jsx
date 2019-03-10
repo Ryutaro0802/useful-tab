@@ -5,7 +5,7 @@ import {setItems, getItems} from '../../util/storage.js';
 const memoGadgetKey = 'useful-tab-memo';
 const defaultValue = JSON.parse(getItems(memoGadgetKey)) || '';
 
-class Memo extends Component {
+export default class Memo extends Component {
   constructor() {
     super();
     this.state = { value: defaultValue };
@@ -22,6 +22,7 @@ class Memo extends Component {
     return (
       <div>
         <textarea
+            className="aaa"
             name=""
             value={this.state.value}
             cols="30"
@@ -32,5 +33,3 @@ class Memo extends Component {
     );
   }
 }
-
-export default Memo;
