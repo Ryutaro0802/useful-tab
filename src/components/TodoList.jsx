@@ -8,7 +8,6 @@ export default class TodoList extends Component {
         <TodoListItem
           key={item.id}
           item={item}
-          editStartTodo={this.props.editStartTodo}
           deleteTodo={this.props.deleteTodo}
           completeStateChangeTodo={this.props.completeStateChangeTodo}
           editCompleteTodo={this.props.editCompleteTodo}

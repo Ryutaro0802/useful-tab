@@ -31,23 +31,11 @@ class Todo extends Component {
         });
     };
 
-    editStartTodo = ({ id }) => {
-        const todoItem = this.state.items.find(item => item.id === id);
-        if (!todoItem) {
-            return;
-        }
-        todoItem.isEditing = true;
-        this.setState({
-            items: this.state.items
-        });
-    };
-
     editCompleteTodo = ({ id, newTitle }) => {
         const todoItem = this.state.items.find(item => item.id === id);
         if (!todoItem) {
             return;
         }
-        todoItem.isEditing = false;
         todoItem.title = newTitle;
         this.setState({
             items: this.state.items
@@ -80,7 +68,6 @@ class Todo extends Component {
         const todoContents = this.state.items.length
             ? <TodoList
                 items={this.state.items}
-                editStartTodo={this.editStartTodo}
                 deleteTodo={this.deleteTodo}
                 completeStateChangeTodo={this.completeStateChangeTodo}
                 editCompleteTodo={this.editCompleteTodo}
