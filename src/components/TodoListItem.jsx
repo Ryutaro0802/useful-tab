@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TodoListItemDetail from "./TodoListItemDetail.jsx";
 import { StyleSheet, css } from "aphrodite";
 
 export default class TodoListItem extends Component {
@@ -7,22 +6,20 @@ export default class TodoListItem extends Component {
     super(props);
     this.state = {
       newTitle: this.props.title,
-      isEditing: this.props.isEditing
+      isEditing: false
     };
+    this.textInput = React.createRef();
   }
 
   changeCompleteState = e => {
     e.preventDefault();
-    this.props.completeStateChangeTodo({ id: this.props.id });
+    this.props.completeStateChangeTodo({ id: this.props.item.id });
   };
 
-  editStartTitle = e => {
-    setTimeout(() => this.refs.titleinput.focus(), 10);
-    this.props.editStartTodo({ id: this.props.id });
-  };
-
-  itemEdit = e => {
-
+  editStartTitle = () => {
+    this.setState({
+      isEditing: true
+    });
   };
 
   updateTitle = e => {
@@ -31,7 +28,7 @@ export default class TodoListItem extends Component {
 
   itemDelete = e => {
     e.preventDefault();
-    this.props.deleteTodo({ id: this.props.id });
+    this.props.deleteTodo({ id: this.props.item.id });
   };
 
   editCompleteTitle = e => {
@@ -50,7 +47,7 @@ export default class TodoListItem extends Component {
 
   render() {
     return (
-      <li className={this.props.completed ? "is-complete" : ""}>
+      <li className={this.props.item.completed ? "is-complete" : ""}>
         <i
           className="material-icons checkbox"
           onClick={this.changeCompleteState}
@@ -58,30 +55,25 @@ export default class TodoListItem extends Component {
           {this.props.completed ? "check_circle" : "check_circle_outline"}
         </i>
         <div className="text">
-          {!this.props.isEditing && (
+          {!this.state.isEditing && (
             <span className="todo-title" onClick={this.editStartTitle}>
               {this.props.item.title}
             </span>
           )}
-          {this.props.isEditing && (
+          {this.state.isEditing && (
             <input
               type="text"
-              ref="titleinput"
-              defaultValue={this.props.title}
+              ref={this.textInput}
+              defaultValue={this.props.item.title}
               onInput={this.updateTitle}
               onBlur={this.editCompleteTitle}
               onKeyDown={this.onKeyDown}
             />
           )}
         </div>
-        <button className="edit" onClick={this.itemEdit}>
-          <i className="material-icons">create</i>
-        </button>
         <button className="delete" onClick={this.itemDelete}>
           <i className="material-icons">close</i>
         </button>
-
-        {this.props.isEditing && <TodoListItemDetail />}
       </li>
     );
   }
