@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
+import RainIcon from "../../components/icon/RainIcon";
 
 const API_KEY = "059443ed516a4cc9d83a2e21ac0b645e";
 const API_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast";
@@ -17,20 +18,27 @@ export default class Weather extends Component {
   constructor() {
     super();
     this.state = {
-      weathers: {}
+      weathers: {},
+      fetchFail: false
     };
   }
+
   async componentDidMount() {
-    const response = await axios.get(URL);
+    let response;
+    try {
+      response = await axios.get(URL);
+    } catch (err) {
+      this.setState({ fetchFail: false });
+    }
     const filteredList = response.data.list.filter(item => {
       const dtTxt = item.dt_txt.split(" ")[0];
       return [tomorrow, dayAfterTomorrow].includes(dtTxt);
     });
     const weatherList = filteredList.map(item => item.weather);
-    // weatherList[2] tormorrow 06:00
-    // weatherList[6] tormorrow 18:00
-    // weatherList[10] dayAfterTormorrow 06:00
-    // weatherList[14] dayAfterTormorrow 08:00
+    // weatherList[2] tomorrow 06:00
+    // weatherList[6] tomorrow 18:00
+    // weatherList[10] dayAfterTomorrow 06:00
+    // weatherList[14] dayAfterTomorrow 08:00
     this.setState({
       weathers: {
         tomorrow: {
@@ -50,11 +58,26 @@ export default class Weather extends Component {
       }
     });
   }
+
   render() {
+    const tomorrow = Object.keys(this.state.weathers).length
+      ? this.state.weathers.tomorrow
+      : null;
+    const dayAfterTomorrow = Object.keys(this.state.weathers).length
+      ? this.state.weathers.dayAfterTomorrow
+      : null;
+
     return (
-      <div>
-        <div>Tomorrow</div>
-        <div>DayAfterTomorrow</div>
+      <div className="weather">
+        <div>tomorrow</div>
+        <p>{tomorrow && tomorrow.date}</p>
+        <p>{tomorrow && tomorrow.weather.morning.main}</p>
+        <p>{tomorrow && tomorrow.weather.evening.main}</p>
+        {/* <RainIcon /> */}
+        <div>dayAfterTomorrow</div>
+        <p>{tomorrow && dayAfterTomorrow.date}</p>
+        <p>{tomorrow && dayAfterTomorrow.weather.morning.main}</p>
+        <p>{tomorrow && dayAfterTomorrow.weather.evening.main}</p>
       </div>
     );
   }
