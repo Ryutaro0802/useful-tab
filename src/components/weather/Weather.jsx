@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import RainIcon from "../../components/icon/RainIcon";
+import CloudIcon from "../../components/icon/CloudIcon";
+import SunnyIcon from "../../components/icon/SunnyIcon";
 
 const API_KEY = "059443ed516a4cc9d83a2e21ac0b645e";
 const API_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast";
@@ -66,18 +68,33 @@ export default class Weather extends Component {
     const dayAfterTomorrow = Object.keys(this.state.weathers).length
       ? this.state.weathers.dayAfterTomorrow
       : null;
+    const selectViewIcon = weatherType => {
+      switch (weatherType) {
+        case "Clear":
+          return <SunnyIcon width={100} fill="rgb(75, 75, 75)" />;
+        case "Rain":
+          return <RainIcon width={100} fill="rgb(75, 75, 75)" />;
+        case "Clouds":
+          return <CloudIcon width={100} fill="rgb(75, 75, 75)" />;
+      }
+    };
 
     return (
       <div className="weather">
         <div>tomorrow</div>
         <p>{tomorrow && tomorrow.date}</p>
-        <p>{tomorrow && tomorrow.weather.morning.main}</p>
-        <p>{tomorrow && tomorrow.weather.evening.main}</p>
-        {/* <RainIcon /> */}
+        <p>{tomorrow && selectViewIcon(tomorrow.weather.morning.main)}</p>
+        <p>{tomorrow && selectViewIcon(tomorrow.weather.evening.main)}</p>
         <div>dayAfterTomorrow</div>
         <p>{tomorrow && dayAfterTomorrow.date}</p>
-        <p>{tomorrow && dayAfterTomorrow.weather.morning.main}</p>
-        <p>{tomorrow && dayAfterTomorrow.weather.evening.main}</p>
+        <p>
+          {tomorrow &&
+            selectViewIcon(dayAfterTomorrow.weather.morning.main)}
+        </p>
+        <p>
+          {tomorrow &&
+            selectViewIcon(dayAfterTomorrow.weather.evening.main)}
+        </p>
       </div>
     );
   }
