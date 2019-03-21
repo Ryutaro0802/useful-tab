@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+import { StyleSheet, css } from "aphrodite";
 import axios from "axios";
 import dayjs from "dayjs";
-import RainIcon from "../../components/icon/RainIcon";
-import CloudIcon from "../../components/icon/CloudIcon";
-import SunnyIcon from "../../components/icon/SunnyIcon";
+import WeatherItem from "./WeatherItem";
+import styleVariables from "../../styleVariables";
 
 const API_KEY = "059443ed516a4cc9d83a2e21ac0b645e";
 const API_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast";
@@ -68,34 +68,46 @@ export default class Weather extends Component {
     const dayAfterTomorrow = Object.keys(this.state.weathers).length
       ? this.state.weathers.dayAfterTomorrow
       : null;
-    const selectViewIcon = weatherType => {
-      switch (weatherType) {
-        case "Clear":
-          return <SunnyIcon width={100} fill="rgb(75, 75, 75)" />;
-        case "Rain":
-          return <RainIcon width={100} fill="rgb(75, 75, 75)" />;
-        case "Clouds":
-          return <CloudIcon width={100} fill="rgb(75, 75, 75)" />;
-      }
+    const getFormatedDate = date => {
+      const splitDate = date.split('-');
+      return `${splitDate[1]}/${splitDate[2]}`
     };
 
     return (
-      <div className="weather">
-        <div>tomorrow</div>
-        <p>{tomorrow && tomorrow.date}</p>
-        <p>{tomorrow && selectViewIcon(tomorrow.weather.morning.main)}</p>
-        <p>{tomorrow && selectViewIcon(tomorrow.weather.evening.main)}</p>
-        <div>dayAfterTomorrow</div>
-        <p>{tomorrow && dayAfterTomorrow.date}</p>
-        <p>
-          {tomorrow &&
-            selectViewIcon(dayAfterTomorrow.weather.morning.main)}
-        </p>
-        <p>
-          {tomorrow &&
-            selectViewIcon(dayAfterTomorrow.weather.evening.main)}
-        </p>
+      <div className={css(styles.weather)}>
+        <div className={css(styles.tomorrow)}>
+          <WeatherItem
+            date={tomorrow && getFormatedDate(tomorrow.date)}
+            morningWeather={tomorrow && tomorrow.weather.morning.main}
+            eveningWeather={tomorrow && tomorrow.weather.evening.main}
+          />
+        </div>
+        <div className={css(styles.dayAfterTomorrow)}>
+          <WeatherItem
+            date={
+              dayAfterTomorrow && getFormatedDate(dayAfterTomorrow.date)
+            }
+            morningWeather={
+              dayAfterTomorrow && dayAfterTomorrow.weather.morning.main
+            }
+            eveningWeather={
+              dayAfterTomorrow && dayAfterTomorrow.weather.evening.main
+            }
+          />
+        </div>
       </div>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  weather: {
+    display: "flex"
+  },
+  tomorrow: {},
+  dayAfterTomorrow: {
+    borderLeft: `1px solid ${styleVariables.borderColor}`,
+    paddingLeft: 15,
+    marginLeft: 15
+  }
+});
