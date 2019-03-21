@@ -9,12 +9,19 @@ const API_KEY = "059443ed516a4cc9d83a2e21ac0b645e";
 const API_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast";
 const CITY = "Tokyo";
 const URL = `${API_BASE_URL}?q=${CITY},jp&units=metric&APPID=${API_KEY}`;
+const dayOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const tomorrow = dayjs()
   .add(1, "days")
   .format("YYYY-MM-DD");
 const dayAfterTomorrow = dayjs()
   .add(2, "days")
   .format("YYYY-MM-DD");
+console.log(dayjs().add(1, 'day'))
+console.log(dayjs().add(2, 'day'));
+const tomorrowDayOfTheWeek = dayOfTheWeek[dayjs().day(1)];
+const dayAfterTomorrowDayOfTheWeek = dayOfTheWeek[dayjs().day(2)];
+console.log(tomorrowDayOfTheWeek);
+console.log(dayAfterTomorrowDayOfTheWeek);
 
 export default class Weather extends Component {
   constructor() {
@@ -102,12 +109,15 @@ export default class Weather extends Component {
 
 const styles = StyleSheet.create({
   weather: {
-    display: "flex"
+    display: "flex",
+    height: 120,
+    width: 150
   },
-  tomorrow: {},
+  tomorrow: {
+    width: "50%"
+  },
   dayAfterTomorrow: {
     borderLeft: `1px solid ${styleVariables.borderColor}`,
-    paddingLeft: 15,
-    marginLeft: 15
+    width: "50%"
   }
 });
