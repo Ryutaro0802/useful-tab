@@ -22,7 +22,7 @@ export default class Memo extends Component {
     return (
       <div>
         <textarea
-          className="aaa"
+          className={css(styles.memo)}
           name=""
           value={this.state.value}
           cols="30"
@@ -33,3 +33,13 @@ export default class Memo extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  memo: {
+    "appearance": "none",
+    "-webkit-appearance": "none",
+    "border": "1px solid #c4c4c4",
+    "padding": ".5em",
+    "cursor": "text"
+  }
+});
