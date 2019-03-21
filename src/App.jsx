@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import Todo from "./Todo.jsx";
-import Memo from "./components/memo/Memo.jsx";
+import Todo from "./Todo";
+import Memo from "./components/memo/Memo";
+import Weather from './components/weather/Weather';
 
-class App extends Component {
+export default class App extends Component {
   constructor() {
     super();
   }
@@ -12,9 +13,8 @@ class App extends Component {
       <div>
         <Todo />
         <Memo />
+        <Weather />
       </div>
     );
   }
 }
-
-export default App;

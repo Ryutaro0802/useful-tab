@@ -56,12 +56,13 @@ export default class TodoListItem extends Component {
         </i>
         <div className="text">
           {!this.state.isEditing && (
-            <span className="todo-title" onClick={this.editStartTitle}>
+            <span className={css(styles.titleLabel)} onClick={this.editStartTitle}>
               {this.props.item.title}
             </span>
           )}
           {this.state.isEditing && (
             <input
+              className="todo-title-input"
               type="text"
               ref={this.textInput}
               defaultValue={this.props.item.title}
@@ -80,11 +81,9 @@ export default class TodoListItem extends Component {
 }
 
 const styles = StyleSheet.create({
-  red: {
-    backgroundColor: "red"
-  },
-  blue: {
-    backgroundColor: "blue"
+  titleLabel: {
+    width: "100%",
+    display: "block"
   },
   hover: {
     ":hover": {
