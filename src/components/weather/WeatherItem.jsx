@@ -14,21 +14,24 @@ export default class Weather extends Component {
     const selectViewIcon = weatherType => {
       switch (weatherType) {
         case "Clear":
-          return <SunnyIcon width={35} fill="#DB8C0B" />;
+          return <SunnyIcon width={30} fill="#DB8C0B" />;
         case "Rain":
-          return <RainIcon width={35} fill="#779fa9" />;
+          return <RainIcon width={30} fill="#779fa9" />;
         case "Clouds":
-          return <CloudIcon width={35} fill="rgb(75, 75, 75)" />;
+          return <CloudIcon width={30} fill="rgb(75, 75, 75)" />;
       }
     };
 
     return (
       <div className={css(styles.weatherItem)}>
-        <p>{this.props.date}</p>
+        <p className={css(styles.dayOfTheWeek)}>
+          {this.props.dayOfTheWeek}
+        </p>
         <div className={css(styles.iconWrapper)}>
           <div className={css(styles.morningWeatherIcon)}>
             {selectViewIcon(this.props.morningWeather)}
           </div>
+          <div className={css(styles.iconSeparatorLine)}></div>
           <div className={css(styles.eveningWeatherIcon)}>
             {selectViewIcon(this.props.eveningWeather)}
           </div>
@@ -40,17 +43,36 @@ export default class Weather extends Component {
 
 const styles = StyleSheet.create({
   weatherItem: {
-    textAlign: "center"
+    textAlign: "center",
+    height: "100%",
+    width: "100%"
   },
   iconWrapper: {
     position: "relative"
   },
+  dayOfTheWeek: {
+    fontWeight: "bold"
+  },
   morningWeatherIcon: {
-    position: "absolute"
+    position: "absolute",
+    left: 10
   },
   eveningWeatherIcon: {
     position: "absolute",
     top: 47,
     left: 27
+  },
+  iconSeparatorLine: {
+    ":before": {
+      display: "block",
+      content: "''",
+      width: 1,
+      height: 60,
+      position: "absolute",
+      left: 40,
+      top: 10,
+      transform: "rotate(60deg)",
+      backgroundColor: styleVariables.borderColor
+    }
   }
 });

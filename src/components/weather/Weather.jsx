@@ -16,12 +16,18 @@ const tomorrow = dayjs()
 const dayAfterTomorrow = dayjs()
   .add(2, "days")
   .format("YYYY-MM-DD");
-console.log(dayjs().add(1, 'day'))
-console.log(dayjs().add(2, 'day'));
-const tomorrowDayOfTheWeek = dayOfTheWeek[dayjs().day(1)];
-const dayAfterTomorrowDayOfTheWeek = dayOfTheWeek[dayjs().day(2)];
-console.log(tomorrowDayOfTheWeek);
-console.log(dayAfterTomorrowDayOfTheWeek);
+const tomorrowDayOfTheWeek =
+  dayOfTheWeek[
+    dayjs()
+      .add(1, "day")
+      .day()
+  ];
+const dayAfterTomorrowDayOfTheWeek =
+  dayOfTheWeek[
+    dayjs()
+      .add(2, "day")
+      .day()
+  ];
 
 export default class Weather extends Component {
   constructor() {
@@ -37,7 +43,8 @@ export default class Weather extends Component {
     try {
       response = await axios.get(URL);
     } catch (err) {
-      this.setState({ fetchFail: false });
+      this.setState({ fetchFail: true });
+      return;
     }
     const filteredList = response.data.list.filter(item => {
       const dtTxt = item.dt_txt.split(" ")[0];
@@ -52,6 +59,7 @@ export default class Weather extends Component {
       weathers: {
         tomorrow: {
           date: tomorrow,
+          dayOfTheWeek: tomorrowDayOfTheWeek,
           weather: {
             morning: weatherList[2][0],
             evening: weatherList[6][0]
@@ -59,6 +67,7 @@ export default class Weather extends Component {
         },
         dayAfterTomorrow: {
           date: dayAfterTomorrow,
+          dayOfTheWeek: dayAfterTomorrowDayOfTheWeek,
           weather: {
             morning: weatherList[10][0],
             evening: weatherList[14][0]
@@ -75,25 +84,19 @@ export default class Weather extends Component {
     const dayAfterTomorrow = Object.keys(this.state.weathers).length
       ? this.state.weathers.dayAfterTomorrow
       : null;
-    const getFormatedDate = date => {
-      const splitDate = date.split('-');
-      return `${splitDate[1]}/${splitDate[2]}`
-    };
 
     return (
       <div className={css(styles.weather)}>
         <div className={css(styles.tomorrow)}>
           <WeatherItem
-            date={tomorrow && getFormatedDate(tomorrow.date)}
+            dayOfTheWeek={tomorrow && tomorrow.dayOfTheWeek}
             morningWeather={tomorrow && tomorrow.weather.morning.main}
             eveningWeather={tomorrow && tomorrow.weather.evening.main}
           />
         </div>
         <div className={css(styles.dayAfterTomorrow)}>
           <WeatherItem
-            date={
-              dayAfterTomorrow && getFormatedDate(dayAfterTomorrow.date)
-            }
+            dayOfTheWeek={dayAfterTomorrow && dayAfterTomorrow.dayOfTheWeek}
             morningWeather={
               dayAfterTomorrow && dayAfterTomorrow.weather.morning.main
             }
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
   weather: {
     display: "flex",
     height: 120,
-    width: 150
+    width: 160
   },
   tomorrow: {
     width: "50%"
