@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TodoListItem from "./TodoListItem.jsx";
+import TodoListItem from "./TodoListItem";
 
 export default class TodoList extends Component {
   render() {

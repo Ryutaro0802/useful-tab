@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Todo from "./Todo";
+import Todo from "./components/todo/Todo";
 import Memo from "./components/memo/Memo";
 import Weather from './components/weather/Weather';
 

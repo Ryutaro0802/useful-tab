@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import NewTodo from "./components/NewTodo";
-import TodoList from "./components/TodoList";
-import Footer from "./components/Footer";
-import NoTasks from "./components/NoTasks";
-import "./App.css";
-import { setItems, getItems } from "./util/storage.js";
+import NewTodo from "./NewTodo";
+import TodoList from "./TodoList";
+import Footer from "./Footer";
+import NoTasks from "./NoTasks";
+import "../../App.css";
+import { setItems, getItems } from "../../util/storage.js";
 
 const todoAppKey = "useful-tab-todo";
 const defaultItems = JSON.parse(getItems(todoAppKey)) || [];
